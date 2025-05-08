@@ -9,23 +9,23 @@ namespace ClassesAndDataStructures
     internal class SuperList<T>
     {
         private T[] _realArray;
+        public T[] Array { get { return _realArray; } }
         public int Length => _realArray.Length;
 
         public SuperList()
         {
-            _realArray = new T[0];
+            _realArray = System.Array.Empty<T>();  
         }
 
         public T Get(int index)
         {
-            if(index < 0 || index >= _realArray.Length)
+            if (index < 0 || index >= _realArray.Length)
             {
                 throw new IndexOutOfRangeException();
             }
             return _realArray[index];
         }
 
-        //aggiunge un elemento alla fine
         public void Push(T item)
         {
             var originalLegth = _realArray.Length;
@@ -39,7 +39,6 @@ namespace ClassesAndDataStructures
             _realArray = newArray;
         }
 
-        //toglie l'ultimo e restituisce elemento rimosso
         public T Pop()
         {
             if (_realArray.Length == 0)
@@ -60,21 +59,25 @@ namespace ClassesAndDataStructures
             return element;
         }
 
-        //aggiunge un elemento all'inizio
         public void Unshift(T item)
         {
-            var originalLegth = _realArray.Length;
-            var newArray = new T[originalLegth + 1];
+            var newArrayLength = _realArray.Length + 1;
+            var newArray = new T[newArrayLength];
             newArray[0] = item;
-            for (int i = 1; i < originalLegth; i++)
+
+            for (int i = 0; i < _realArray.Length; i++)
             {
-                newArray[i] = _realArray[i - 1];
+                newArray[i + 1] = _realArray[i];
             }
 
             _realArray = newArray;
         }
 
-        //toglie il primo e restituisce elemento rimosso
+        public T? ShiftNull()
+        {
+            return default;
+        }
+
         public T Shift()
         {
             if (_realArray.Length == 0)
@@ -82,15 +85,15 @@ namespace ClassesAndDataStructures
                 throw new InvalidOperationException("Cannot shift from an empty list.");
             }
 
-            int newArrayLength = _realArray.Length - 1;
+            var newArrayLength = _realArray.Length - 1;
             var newArray = new T[newArrayLength];
-            T element = _realArray[0];
 
             for (int i = 1; i < _realArray.Length; i++)
             {
                 newArray[i - 1] = _realArray[i];
             }
 
+            var element = _realArray[0];
             _realArray = newArray;
             return element;
         }
@@ -102,17 +105,8 @@ namespace ClassesAndDataStructures
                 throw new IndexOutOfRangeException();
             }
 
-            int originalLength = _realArray.Length;
-            var newArray = new T[originalLength - 1];
-            
-            newArray = _realArray.Where((_, i) => i != index).ToArray();
-
+            var newArray = _realArray.Where((_, i) => i != index).ToArray();
             _realArray = newArray;
-        }
-
-        public void Clear()
-        {
-            _realArray = new T[0];
         }
     }
 }

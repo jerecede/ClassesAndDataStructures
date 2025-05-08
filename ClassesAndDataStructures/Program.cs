@@ -6,6 +6,8 @@ namespace ClassesAndDataStructures
     {
         static void Main(string[] args)
         {
+            //GUARDARE CODICE DI HUGO
+
             Student student1 = new Student("pippo", "de pippis", "male", 2000);
             Student student2 = new Student("paperoga", "de paperoni", 2000);
             Student student3 = new("paperino", "de paperoni", 2000);
@@ -17,7 +19,7 @@ namespace ClassesAndDataStructures
 
             Student[] students = new Student[3]; //statico
             students[0] = student1;
-            //Student[] newArray = (Student[])students.Append(student2); //c'è un errore che non capisco
+            Student[] newArray = students.Append(student2).ToArray(); // cmq per array static serve per fare Add, ma restituisce un nuovo array non modica quello attuale
             students[2] = student3;
             Student[] newArray2 = AppendToStudentsArray(students, student4);
 
@@ -58,8 +60,11 @@ namespace ClassesAndDataStructures
 
             Console.WriteLine("");
 
-            superList.Shift();
-            superList.Pop();
+            //superList.Shift();
+            //superList.Pop();
+            //superList.Delete(2);
+            //superList.Push(student1);
+            //superList.Unshift(student1);
 
             for (int i = 0; i < superList.Length; i++)
             {
